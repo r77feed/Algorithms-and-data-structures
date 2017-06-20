@@ -10,77 +10,77 @@ struct SimpleNode {
 };
 
 class AbstractList {
-public:
-	virtual int getSize()=0;
-	virtual int getNth(int n)=0;
-	virtual void deleteList()=0;
+	public:
+		virtual int getSize()=0;
+		virtual int getNth(int n)=0;
+		virtual void deleteList()=0;
 };
 
 class LinkedList: public AbstractList {
-public:
-	SimpleNode *root = NULL;
-	SimpleNode *last = NULL;
-	SimpleNode *curr = NULL;
-	int size = 0;
+	public:
+		SimpleNode *root = NULL;
+		SimpleNode *last = NULL;
+		SimpleNode *curr = NULL;
+		int size = 0;
 
-	LinkedList(int lenght, int * array) {
-		for (int i = 0; i < lenght; i++) {
-			addItem(array[i]);
+		LinkedList(int lenght, int * array) {
+			for (int i = 0; i < lenght; i++) {
+				addItem(array[i]);
+			}
 		}
-	}
-	/*
-	 ~LinkedList() {
-	 curr = root;
-	 while (curr) {
-	 last = curr;
-	 curr = last->next;
-	 if (curr)
-	 delete last;
-	 }
-	 }
-	 */
-	void addItem(int elem) {
-		if (!root) {
-			root = new SimpleNode;
-			root->data = elem;
-			root->next = NULL;
-			last = root;
 
-		} else {
+		~LinkedList() {
+			curr = root;
+			while (curr) {
+				last = curr;
+				curr = last->next;
+				if (curr)
+					delete last;
+			}
+		}
+
+		void addItem(int elem) {
+			if (!root) {
+				root = new SimpleNode;
+				root->data = elem;
+				root->next = NULL;
+				last = root;
+
+			} else {
+				curr = new SimpleNode;
+				curr->data = elem;
+				curr->next = NULL;
+				last->next = curr;
+				last = curr;
+			}
+			size++;
+		}
+
+		void printList() {
+			if (!root)
+				return;
 			curr = new SimpleNode;
-			curr->data = elem;
-			curr->next = NULL;
-			last->next = curr;
-			last = curr;
+			curr = root;
+			while (curr != NULL) {
+				cout << curr->data << " ";
+				curr = curr->next;
+			}
 		}
-		size++;
-	}
 
-	void printList() {
-		if (!root)
-			return;
-		curr = new SimpleNode;
-		curr = root;
-		while (curr != NULL) {
-			cout << curr->data << " ";
-			curr = curr->next;
+		int getSize() {
+			return size;
 		}
-	}
 
-	int getSize() {
-		return size;
-	}
-
-	int getNth(int n) {
-		curr = new SimpleNode;
-		curr = root;
-		int counter = 0;
-		while (counter < n) {
-			curr = curr->next;
-			counter++;
+		int getNth(int n) {
+			curr = new SimpleNode;
+			curr = root;
+			int counter = 0;
+			while (counter < n) {
+				curr = curr->next;
+				counter++;
+			}
+			return curr->data;
 		}
-		return curr->data;
-	}
 
 		void deleteList(){
 			curr = root;
@@ -94,68 +94,68 @@ public:
 };
 
 class Stack: public AbstractList {
-public:
-	SimpleNode *top = NULL;
-	SimpleNode *curr = NULL;
-	int size = 0;
-	Stack(int lenght, int * array) {
-		for (int i = 0; i < lenght; i++) {
-			push(array[i]);
+	public:
+		SimpleNode *top = NULL;
+		SimpleNode *curr = NULL;
+		int size = 0;
+		Stack(int lenght, int * array) {
+			for (int i = 0; i < lenght; i++) {
+				push(array[i]);
+			}
+
+		}
+		void push(int elem) {
+			if (!top) {
+				top = new SimpleNode();
+				top->next = NULL;
+				top->data = elem;
+			} else {
+				curr = new SimpleNode();
+				curr->data = elem;
+				curr->next = top;
+				top = curr;
+			}
+			size++;
+		}
+		int pop() {
+			if (!top)
+				return 0;
+			curr = top;
+			int value = curr->data;
+			top = top->next;
+			delete (curr);
+			size--;
+			return value;
+
 		}
 
-	}
-	void push(int elem) {
-		if (!top) {
-			top = new SimpleNode();
-			top->next = NULL;
-			top->data = elem;
-		} else {
-			curr = new SimpleNode();
-			curr->data = elem;
-			curr->next = top;
-			top = curr;
+		void printStack() {
+			curr = top;
+			while (curr) {
+				cout << curr->data << " ";
+				curr = curr->next;
+			}
+			cout << endl;
 		}
-		size++;
-	}
-	int pop() {
-		if (!top)
-			return 0;
-		curr = top;
-		int value = curr->data;
-		top = top->next;
-		delete (curr);
-		size--;
-		return value;
 
-	}
-
-	void printStack() {
-		curr = top;
-		while (curr) {
-			cout << curr->data << " ";
-			curr = curr->next;
+		void removeFirstN(int n) {
+			for (int i = 0; i < n; i++) {
+				pop();
+			}
 		}
-		cout << endl;
-	}
 
-	void removeFirstN(int n) {
-		for (int i = 0; i < n; i++) {
-			pop();
+		int getSize() {
+			return size;
 		}
-	}
 
-	int getSize() {
-		return size;
-	}
-
-	int getNth(int n) {
-		curr = top;
-		int counter = 0;
-		while (counter < n) {
-			curr = curr->next;
+		int getNth(int n) {
+			curr = top;
+			int counter = 0;
+			while (counter < n) {
+				curr = curr->next;
+			}
+			return curr->data;
 		}
-		return curr->data;
-	}
 };
 
 int main() {
