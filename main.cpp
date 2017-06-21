@@ -15,6 +15,7 @@ class AbstractList {
 		virtual int getNth(int n)=0;
 		virtual void deleteList()=0;
 		virtual void printList()=0;
+		virtual void removeNth(int n)=0;
 };
 
 class LinkedList: public AbstractList {
@@ -55,6 +56,21 @@ class LinkedList: public AbstractList {
 				last = curr;
 			}
 			size++;
+		}
+
+		void removeNth(int n){
+			SimpleNode *tmp;
+			if (!root || n <=1){
+				return;
+			}
+	
+			curr = root;
+			while (curr || n >1) {
+				curr=curr->next;
+				n--;
+			}
+			tmp = curr;
+			//unfinished
 		}
 
 		void printList() {
@@ -157,6 +173,13 @@ class Stack: public AbstractList {
 			}
 			return curr->data;
 		}
+
+
+		void removeNth(int n){
+
+		
+}
+
 		void deleteList(){
 			curr = top;
 			while(curr){
