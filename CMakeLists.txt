@@ -6,6 +6,7 @@ find_package(GLUT)
 find_package(GLEW)
 
 aux_source_directory(. SRC_LIST)
+aux_source_directory(Lists SRC_LIST)
 MESSAGE( STATUS ${SRC_LIST})
 file(GLOB SOURCES ${CMAKE_CURRENT_LIST_DIR} *.h)
 MESSAGE( STATUS ${SOURCES})
