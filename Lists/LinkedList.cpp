@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <iostream>
 #include "LinkedList.h"
+#include "Stack.h"
 
 using namespace std;
 
@@ -50,7 +51,7 @@ class LinkedList: public AbstractList {
 			if (!root || n <=1){
 				return;
 			}
-	
+
 			curr = root;
 			while (curr || n >1) {
 				curr=curr->next;
@@ -92,7 +93,53 @@ class LinkedList: public AbstractList {
 				last = curr;
 				curr=curr->next;
 				if (last) delete last;
+			}
+
+		}
+
+
+		bool detectPalindrome(){
+			Stack s;
+			int middle =size /2;
+			bool odd = true;
+			if (!(size %2) ==0)
+				middle = (size /2) -1;
+			odd = false;
+
+			curr = root;
+			for(int i=0;i<middle;i++){
+				s.push(curr);
+				curr= curr -> next;
+			}
+			if (!odd)
+				middle +=1;
+			for (int i=middle;i++){
+				if (!curr == s.pop())
+					return false;
+				curr = curr -> next;
+
+			}
+
+		}
+
+		void inverseFromNth(int n){
+			SimpleNode *before, *after;
+			before =root;
+			for(int i=0; i<n-1;i++){
+				before=before->next;
+			}
+			while(curr){
+				curr = before->next;
+				after = curr->next;
+				curr->next = before;
+				before = curr;
+
 
 			}
 		}
+		void sort(){
+			
+
+		}
+
 };

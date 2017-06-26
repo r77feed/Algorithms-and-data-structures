@@ -11,6 +11,10 @@ class LinkedList: public AbstractList {
 		int getSize();
 		int getNth(int n);
 		void deleteList();
+        void detectPalindrome();
+        void inverseFromNth();
+        void sort();
+
 };
 
 #endif 
