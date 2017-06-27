@@ -138,7 +138,32 @@ class LinkedList: public AbstractList {
 			}
 		}
 		void sort(){
-			
+			mergesort(SimpleNode *a, SimpleNode *b){
+				SimpleNode *c;
+				while (a && b){
+					if (a->info < b->info){
+						c = a;
+						a = a->next;
+					}
+					else{
+						c=b;
+						b=b->next;
+					}
+					c=c->next;
+				}
+				root = c;
+			}
+
+			SimpleNode *slow= root;
+			SimpleNode *fast = root;
+			while (slow->next && fast->next->next){
+				slow = slow->next;
+				fast= fast->next->next;
+			}
+			fast = slow->next;
+			slow->next =null;
+
+			mergesort(root,fast);
 
 		}
 
