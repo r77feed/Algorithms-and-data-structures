@@ -1,6 +1,7 @@
 public class Stack<T> {
 
 	public SimpleNode<T> root;
+    public int size;
 
 	public T pop(){
 		SimpleNode<T> curNode = new SimpleNode<T>();
@@ -8,6 +9,7 @@ public class Stack<T> {
 		curNode = root;
 		root = root.next;
 		curNode = null;	
+        if (size > 0) size--;
 		return value;
 		
 	}
@@ -25,6 +27,7 @@ public class Stack<T> {
 			newNode.next = root;
 			root = newNode;
 		}
+        size++;
 		return 0;
 	}
 
